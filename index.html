@@ -2,12 +2,70 @@
 <html ng-app="redditApp">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>God Creating Animals - A Reddit Clone</title>
     <link type="text/css" rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="css/materialize.min.css">
   </head>
   <body>
+    <header ng-controller="postCtrl as postController">
+      <!-- Dropdown Structure -->
+      <ul id="dropdown1" class="dropdown-content">
+        <li><a href="#dropdown">Upvotes - Ascending</a></li>
+        <li><a href="#dropdown">Upvotes - Descending</a></li>
+        <li class="divider"></li>
+        <li><a href="#dropdown">Title - Ascending</a></li>
+        <li><a href="#dropdown">Title - Descending</a></li>
+      </ul>
+      <nav>
+        <div class="nav-wrapper">
+          <div class="brand-logo center">God Creating Animals - A Reddit Clone</div>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="#" ng-click="postController.Posting()">Post</a></li>
+            <li><a class="dropdown-button" href="#dropdown" data-activates="dropdown1">Sort By<i class="material-icons right">arrow_drop_down</i></a></li>
+          </ul>
+          <form class="searchBar">
+            <div class="input-field">
+              <input id="search" type="search" required>
+              <label for="search"><i class="material-icons">search</i></label>
+              <i class="material-icons">close</i>
+            </div>
+          </form>
+        </div>
+      </nav>
+      <section ng-show="postController.posting">
+        <div class="row">
+          <form class="col s12">
+            <div class="row">
+              <div class="input-field col s6">
+                <input id="title" type="text" class="validate" ng-model="postController.newPost.title">
+                <label for="title">Title</label>
+              </div>
+              <div class="input-field col s6">
+                <input id="author" type="text" class="validate" ng-model="postController.newPost.author">
+                <label for="author">Author</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s6">
+                <input id="imageURL" type="password" class="validate" ng-model="postController.newPost.imageURL">
+                <label for="imageURL">Image URL</label>
+              </div>
+              <div class="input-field col s6">
+                <input id="description" type="email" class="validate" ng-model="postController.newPost.description">
+                <label for="description">Description</label>
+              </div>
+            </div>
+            <div class="row">
+              <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+            </div>
+          </form>
+        </div>
+      </section>
+    </header>
+    <main ng-controller="">
+
+    </main>
 
     <script src="js/jquery-2.1.4.min.js"></script>
     <script src="js/angular.min.js"></script>

@@ -7,15 +7,15 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="css/materialize.min.css">
   </head>
-  <body>
-    <header ng-controller="postCtrl as postController">
+  <body ng-controller="postCtrl as postController">
+    <header>
       <!-- Dropdown Structure -->
       <ul id="dropdown1" class="dropdown-content">
-        <li><a href="#dropdown">Upvotes - Ascending</a></li>
-        <li><a href="#dropdown">Upvotes - Descending</a></li>
+        <li><a href="#dropdown" ng-click="setSort('upvotes')">Upvotes - Ascending</a></li>
+        <li><a href="#dropdown" ng-click="setSort('-upvotes')">Upvotes - Descending</a></li>
         <li class="divider"></li>
-        <li><a href="#dropdown">Title - Ascending</a></li>
-        <li><a href="#dropdown">Title - Descending</a></li>
+        <li><a href="#dropdown" ng-click="setSort('title')">Title - Ascending</a></li>
+        <li><a href="#dropdown" ng-click="setSort('-title')">Title - Descending</a></li>
       </ul>
       <nav>
         <div class="nav-wrapper">
@@ -26,44 +26,86 @@
           </ul>
           <form class="searchBar">
             <div class="input-field">
-              <input id="search" type="search" required>
+              <input id="search" type="search" ng-model="postController.filterText" required>
               <label for="search"><i class="material-icons">search</i></label>
-              <i class="material-icons">close</i>
+              <i class="material-icons" ng-click="postController.filterText = ''">close</i>
             </div>
           </form>
         </div>
       </nav>
+
       <section ng-show="postController.posting">
         <div class="row">
-          <form class="col s12">
+          <form class="col s12" name="postForm" ng-submit="postController.addPost()">
             <div class="row">
               <div class="input-field col s6">
-                <input id="title" type="text" class="validate" ng-model="postController.newPost.title">
+                <input id="title" type="text" class="validate" ng-model="postController.newPost.title" required>
                 <label for="title">Title</label>
               </div>
               <div class="input-field col s6">
-                <input id="author" type="text" class="validate" ng-model="postController.newPost.author">
+                <input id="author" type="text" class="validate" ng-model="postController.newPost.author" required>
                 <label for="author">Author</label>
               </div>
             </div>
             <div class="row">
               <div class="input-field col s6">
-                <input id="imageURL" type="password" class="validate" ng-model="postController.newPost.imageURL">
+                <input id="imageURL" type="url" class="validate" ng-model="postController.newPost.imageURL" required>
                 <label for="imageURL">Image URL</label>
               </div>
               <div class="input-field col s6">
-                <input id="description" type="email" class="validate" ng-model="postController.newPost.description">
+                <input id="description" type="text" class="validate" ng-model="postController.newPost.description" required>
                 <label for="description">Description</label>
               </div>
             </div>
             <div class="row">
-              <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+              <button class="btn-floating btn-large waves-effect waves-light red" type="submit" name="action"><i class="material-icons">add circle outline</i></button>
+              <button class="btn-floating btn-large waves-effect waves-light red" type="button" name="action" ng-click="postForm.$setPristine(); postController.Posting()"><i class="material-icons">remove circle outline</i></button>
             </div>
           </form>
         </div>
       </section>
     </header>
-    <main ng-controller="">
+    <main class="container" ng-controller="contentCtrl as contentController">
+      <article class="row contentBox" ng-repeat="post in posts | orderBy:contentController.sort | filter:postController.filterText:false track by $index">
+        <img ng-src="{{post.imageURL}}" class="contentImage col s4" alt="cool image">
+        <div class="col s7">
+          <div class="row valign-wrapper" ng-class="contentController.standing">
+            <h5 class="col s8">{{post.title}}"</h5>
+            <h6 class="col s2">By {{post.author}}</h6>
+            <i class="material-icons" ng-click="contentController.upvote('add', $index)">add_circle_outline</i>
+            <i class="material-icons" ng-click="contentController.upvote('remove', $index)">remove_circle_outline</i>
+            <p class="upvotes valign">{{post.upvotes}}</p>
+          </div>
+          <div class="row">
+            <div class="col s8">{{post.description}}</div>
+            <div ng-click="contentController.Commenting($index)">
+              <p class="commentLength">{{post.comments.length}}</p>
+              <i class="material-icons">message</i>
+              <p class="commentSuffix" ng-hide="post.comments.length === 1">'s</p>
+            </div>
+          </div>
+        </div>
+        <div class="col s12" ng-repeat="comment in post.comments">
+          <div>{{comment.text}} by {{comment.author}}</div>
+        </div>
+        <div class="col s12" ng-show="post.commenting">
+          <form name="commentForm">
+            <div class="row">
+              <div class="input-field col s7">
+                <input id="text" type="text" class="validate" ng-model="contentController.newComment.text" required>
+                <label for="text">Text</label>
+              </div>
+              <div class="input-field col s4">
+                <input id="author" type="text" class="validate" ng-model="contentController.newComment.author" required>
+                <label for="author">Author</label>
+              </div>
+              <div class="col s1">
+                <i class="material-icons submitComment" ng-click="contentController.addComment($index); commentForm.$setPristine()">queue</i>
+              </div>
+            </div>
+          </form>
+        </div>
+      </article>
 
     </main>
 

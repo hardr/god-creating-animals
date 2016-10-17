@@ -55,3 +55,12 @@ header {
   position: relative;
   top: 35px;
 }
+
+.commentList {
+  margin-bottom: 10px;
+  border-bottom: 1px solid teal;
+}
+
+.commentList p {
+  padding-bottom: 15px;
+}

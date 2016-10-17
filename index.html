@@ -66,29 +66,30 @@
       </section>
     </header>
     <main class="container" ng-controller="contentCtrl as contentController">
-      <article class="row contentBox" ng-repeat="post in posts | orderBy:contentController.sort | filter:postController.filterText:false track by $index">
+      <article class="row contentBox" ng-repeat="post in posts | orderBy:contentController.sort | filter:postController.filterText:false">
         <img ng-src="{{post.imageURL}}" class="contentImage col s4" alt="cool image">
         <div class="col s7">
-          <div class="row valign-wrapper" ng-class="contentController.standing">
+          <div class="row valign-wrapper" ng-class="post.standing">
             <h5 class="col s8">{{post.title}}"</h5>
             <h6 class="col s2">By {{post.author}}</h6>
-            <i class="material-icons" ng-click="contentController.upvote('add', $index)">add_circle_outline</i>
-            <i class="material-icons" ng-click="contentController.upvote('remove', $index)">remove_circle_outline</i>
+            <i class="material-icons" ng-click="contentController.upvote('add', post)">add_circle_outline</i>
+            <i class="material-icons" ng-click="contentController.upvote('remove', post)">remove_circle_outline</i>
             <p class="upvotes valign">{{post.upvotes}}</p>
           </div>
           <div class="row">
             <div class="col s8">{{post.description}}</div>
-            <div ng-click="contentController.Commenting($index)">
+            <div ng-click="contentController.Commenting(post)">
               <p class="commentLength">{{post.comments.length}}</p>
               <i class="material-icons">message</i>
               <p class="commentSuffix" ng-hide="post.comments.length === 1">'s</p>
             </div>
           </div>
         </div>
-        <div class="col s12" ng-repeat="comment in post.comments">
-          <div>{{comment.text}} by {{comment.author}}</div>
-        </div>
+
         <div class="col s12" ng-show="post.commenting">
+          <div class="col s12 commentList" ng-repeat="comment in post.comments">
+            <div>{{comment.text}} by {{comment.author}}</div>
+          </div>
           <form name="commentForm">
             <div class="row">
               <div class="input-field col s7">
@@ -100,7 +101,7 @@
                 <label for="author">Author</label>
               </div>
               <div class="col s1">
-                <i class="material-icons submitComment" ng-click="contentController.addComment($index); commentForm.$setPristine()">queue</i>
+                <i class="material-icons submitComment" ng-click="contentController.addComment(post); commentForm.$setPristine()">queue</i>
               </div>
             </div>
           </form>

@@ -10,7 +10,9 @@
       imageURL: 'https://thechive.files.wordpress.com/2016/07/tweets-god-creating-animals-16.jpg?quality=85&strip=info&w=600',
       description: 'No explanation for why Hyena is Hyena',
       upvotes: 0,
-      comments: []
+      comments: [],
+      commenting: false,
+      standing: 'neutral'
     },
     {
       title: 'God creating Jellyfish',
@@ -18,7 +20,9 @@
       imageURL: 'https://img.buzzfeed.com/buzzfeed-static/static/2016-07/5/10/campaign_images/buzzfeed-prod-fastlane01/24-hilarious-tweets-about-god-creating-animals-2-17348-1467730728-1_dblbig.jpg',
       description: 'Think about it.. all fact.',
       upvotes: 0,
-      comments: []
+      comments: [],
+      commenting: false,
+      standing: 'neutral'
     },
     {
       title: 'God punishing people with mosquitoes',
@@ -26,7 +30,9 @@
       imageURL: 'http://static.boredpanda.com/blog/wp-content/uploads/2016/07/how-animals-were-created-god-funny-animal-tweets-48-577b91f9cb332__700.jpg',
       description: 'Fucking mosquitoes, no.',
       upvotes: 0,
-      comments: []
+      comments: [],
+      commenting: false,
+      standing: 'neutral'
     },
     {
       title: 'God\'s twisted kitten',
@@ -34,7 +40,29 @@
       imageURL: 'http://static.boredpanda.com/blog/wp-content/uploads/2016/07/how-animals-were-created-god-funny-animal-tweets-28-577b80c24f6a8__700.jpg',
       description: 'So cute and deadly.',
       upvotes: 0,
-      comments: []
+      comments: [],
+      commenting: false,
+      standing: 'neutral'
+    },
+    {
+      title: 'God creating the Panda Bear Cow',
+      author: 'Cody',
+      imageURL: 'http://www.collegehumor.com/images/download.jpg',
+      description: 'We\'ve all thought it.',
+      upvotes: 0,
+      comments: [],
+      commenting: false,
+      standing: 'neutral'
+    },
+    {
+      title: 'God creating the Panda Bear Cow',
+      author: 'Cody',
+      imageURL: 'http://www.collegehumor.com/images/download.jpg',
+      description: 'We\'ve all thought it.',
+      upvotes: 0,
+      comments: [],
+      commenting: false,
+      standing: 'neutral'
     }];
     this.posting = false;
     this.newPost = {};
@@ -69,29 +97,31 @@
 
     this.upvote = (action, index) => {
       if (action === 'add') {
-        $rootScope.posts[index].upvotes++;
+        index.upvotes++;
       } else {
-        $rootScope.posts[index].upvotes--;
+        index.upvotes--;
       }
-      if ($rootScope.posts[index].upvotes > 0) {
-        this.standing = 'positive';
-      } else if ($rootScope.posts[index].upvotes === 0) {
-        this.standing = 'neutral';
+
+      if (index.upvotes > 0) {
+        index.standing = 'positive';
+      } else if (index.upvotes === 0) {
+        index.standing = 'neutral';
       } else {
-        this.standing = 'negative';
+        index.standing = 'negative';
       }
+      console.log(index.standing);
     };
 
     this.Commenting = (index) => {
-      if ($rootScope.posts[index].commenting) {
-        $rootScope.posts[index].commenting = false;
+      if (index.commenting) {
+        index.commenting = false;
       } else {
-        $rootScope.posts[index].commenting = true;
+        index.commenting = true;
       }
     };
 
     this.addComment = (index) => {
-      $rootScope.posts[index].comments.push(this.newComment);
+      index.comments.push(this.newComment);
       this.newComment = {};
     };
 

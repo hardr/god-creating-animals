@@ -17,12 +17,12 @@ header {
 }
 
 .upvotes {
-  display: inline;
+  display: inline-block;
   border-left: 1px solid grey;
-  margin-left: 20px;
-  padding-left: 20px;
+  /*margin-left: 20px;*/
+  /*padding-left: 20px;*/
   font-size: 25px;
-  text-align: right;
+  /*text-align: right;*/
 }
 
 .positive p {

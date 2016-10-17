@@ -70,25 +70,30 @@
         <img ng-src="{{post.imageURL}}" class="contentImage col s4" alt="cool image">
         <div class="col s7">
           <div class="row valign-wrapper" ng-class="post.standing">
-            <h5 class="col s8">{{post.title}}"</h5>
+            <h5 class="col s7">{{post.title}}</h5>
             <h6 class="col s2">By {{post.author}}</h6>
-            <i class="material-icons" ng-click="contentController.upvote('add', post)">add_circle_outline</i>
-            <i class="material-icons" ng-click="contentController.upvote('remove', post)">remove_circle_outline</i>
+            <i class="material-icons upvoteButton" ng-click="contentController.upvote('add', post)">add_circle_outline</i>
+            <i class="material-icons upvoteButton" ng-click="contentController.upvote('remove', post)">remove_circle_outline</i>
             <p class="upvotes valign">{{post.upvotes}}</p>
           </div>
           <div class="row">
-            <div class="col s8">{{post.description}}</div>
-            <div ng-click="contentController.Commenting(post)">
+            <div class="col s7">{{post.description}}</div>
+            <div class="col s5" ng-click="contentController.Commenting(post)">
               <p class="commentLength">{{post.comments.length}}</p>
               <i class="material-icons">message</i>
               <p class="commentSuffix" ng-hide="post.comments.length === 1">'s</p>
+              <!-- <time am-time-ago="post.time" title="{{ post.time | amDateFormat: 'dddd, MMMM Do YYYY, h:mm a' }}"></time> -->
+              <time am-time-ago="post.time" title="{{ post.time | amCalendar:referenceTime:formats }}"></time>
             </div>
           </div>
         </div>
 
         <div class="col s12" ng-show="post.commenting">
           <div class="col s12 commentList" ng-repeat="comment in post.comments">
-            <div>{{comment.text}} by {{comment.author}}</div>
+            <div>{{comment.text}} by {{comment.author}} -
+              <!-- <time am-time-ago="comment.time" title="{{ post.time | amDateFormat: 'dddd, MMMM Do YYYY, h:mm a' }}"></time> -->
+              <time am-time-ago="comment.time" title="{{ comment.time | amCalendar:referenceTime:formats }}"></time>
+            </div>
           </div>
           <form name="commentForm">
             <div class="row">
@@ -113,7 +118,10 @@
     <script src="js/jquery-2.1.4.min.js"></script>
     <script src="js/angular.min.js"></script>
     <script src="js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.9.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-moment/0.9.0/angular-moment.min.js"></script>
     <script src="js/app.js"></script>
     <script src="js/controllers.js"></script>
+
   </body>
 </html>

@@ -1,7 +1,7 @@
 (function() {
   'use strict';
 
-  var app = angular.module('redditApp', []);
+  var app = angular.module('redditApp', ['angularMoment']);
 
   app.filter('rating', function () {
     return function(input) {

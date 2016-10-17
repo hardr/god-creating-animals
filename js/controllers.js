@@ -10,7 +10,17 @@
       imageURL: 'https://thechive.files.wordpress.com/2016/07/tweets-god-creating-animals-16.jpg?quality=85&strip=info&w=600',
       description: 'No explanation for why Hyena is Hyena',
       upvotes: 0,
-      comments: [],
+      time: new Date(),
+      comments: [{
+        author: 'MadRyan',
+        text: 'This shit cray!',
+        time: new Date()
+      },
+      {
+        author: 'MadSam',
+        text: 'Rude!',
+        time: new Date()
+      }],
       commenting: false,
       standing: 'neutral'
     },
@@ -20,7 +30,12 @@
       imageURL: 'https://img.buzzfeed.com/buzzfeed-static/static/2016-07/5/10/campaign_images/buzzfeed-prod-fastlane01/24-hilarious-tweets-about-god-creating-animals-2-17348-1467730728-1_dblbig.jpg',
       description: 'Think about it.. all fact.',
       upvotes: 0,
-      comments: [],
+      time: new Date(),
+      comments: [{
+        author: 'Sam-Antha',
+        text: 'See you never!',
+        time: new Date()
+      }],
       commenting: false,
       standing: 'neutral'
     },
@@ -30,6 +45,7 @@
       imageURL: 'http://static.boredpanda.com/blog/wp-content/uploads/2016/07/how-animals-were-created-god-funny-animal-tweets-48-577b91f9cb332__700.jpg',
       description: 'Fucking mosquitoes, no.',
       upvotes: 0,
+      time: new Date(),
       comments: [],
       commenting: false,
       standing: 'neutral'
@@ -39,33 +55,45 @@
       author: 'Sam',
       imageURL: 'http://static.boredpanda.com/blog/wp-content/uploads/2016/07/how-animals-were-created-god-funny-animal-tweets-28-577b80c24f6a8__700.jpg',
       description: 'So cute and deadly.',
-      upvotes: 0,
+      upvotes: -1,
+      time: new Date(),
       comments: [],
       commenting: false,
-      standing: 'neutral'
+      standing: 'negative'
     },
     {
       title: 'God creating the Panda Bear Cow',
       author: 'Cody',
-      imageURL: 'http://www.collegehumor.com/images/download.jpg',
+      imageURL: 'http://static.boredpanda.com/blog/wp-content/uploads/2016/07/how-animals-were-created-god-funny-animal-tweets-17-577b7b427401c__700.jpg',
       description: 'We\'ve all thought it.',
-      upvotes: 0,
+      upvotes: 1,
+      time: new Date(),
       comments: [],
       commenting: false,
-      standing: 'neutral'
+      standing: 'positive'
     },
     {
-      title: 'God creating the Panda Bear Cow',
+      title: 'God creating ze bee',
       author: 'Cody',
-      imageURL: 'http://www.collegehumor.com/images/download.jpg',
-      description: 'We\'ve all thought it.',
-      upvotes: 0,
-      comments: [],
+      imageURL: 'http://theawesomedaily.com/wp-content/uploads/2016/07/foogJqy.jpg',
+      description: 'Yum, bee puke!',
+      upvotes: 3,
+      time: new Date(),
+      comments: [{
+        author: 'Sam I Am',
+        text: 'It\'s just a lil bug!',
+        time: new Date()
+      },
+      {
+        author: 'SSJ',
+        text: 'It\'s not puke, ya big dummy!',
+        time: new Date()
+      }],
       commenting: false,
-      standing: 'neutral'
+      standing: 'positive'
     }];
     this.posting = false;
-    this.newPost = {};
+    this.newPost = {time: new Date(), comments: []};
 
     this.Posting = () => {
       if (this.posting === true) {
@@ -78,7 +106,7 @@
     this.addPost = () => {
       $rootScope.posts.push(this.newPost);
       this.posting = false;
-      this.newPost = {};
+      this.newPost = {time: new Date()};
       $scope.postForm.$setPristine();
     };
 
@@ -89,7 +117,7 @@
   app.controller('contentCtrl', function($rootScope) {
     this.sort = 'title';
 
-    this.newComment = {};
+    this.newComment = {time: new Date()};
 
     $rootScope.setSort = (sortBy) => {
       this.sort = sortBy;
@@ -109,7 +137,6 @@
       } else {
         index.standing = 'negative';
       }
-      console.log(index.standing);
     };
 
     this.Commenting = (index) => {
@@ -122,7 +149,7 @@
 
     this.addComment = (index) => {
       index.comments.push(this.newComment);
-      this.newComment = {};
+      this.newComment = {time: new Date()};
     };
 
   });

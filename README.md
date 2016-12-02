@@ -4,4 +4,4 @@ Angular is the method, hilarity is the madness.
 
 It's even deployed:
 
-https://hardr.github.io/god-creating-animals/
+https://ryanharings.github.io/god-creating-animals/
